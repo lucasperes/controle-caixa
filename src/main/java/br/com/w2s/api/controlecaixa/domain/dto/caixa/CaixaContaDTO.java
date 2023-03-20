@@ -51,5 +51,7 @@ public class CaixaContaDTO extends AbstractDTOBase {
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	private BigDecimal valorSaldo;
+	@JsonProperty(access = Access.READ_ONLY)
+	private BigDecimal valorSaldoConsolidado;
 	
 }

@@ -49,7 +49,7 @@ public class MovimentacoesResource extends AbstractResourceApiBase {
 	private MovimentacaoFacade facade;
 	
 	@GetMapping
-	@Operation(operationId = "listAll", tags = "Caixas/Contas", summary = "Listar Caixas/Contas", description = "Lista todos os Caixas/Contas filtrados e paginados")
+	@Operation(operationId = "listAll", tags = "Movimentações", summary = "Listar Movimentações", description = "Lista todas as Movimentações filtrados e paginados")
 	@ApiResponses({
 		@ApiResponse(responseCode = "200", description = "Ok"),
 		@ApiResponse(responseCode = "204", description = "No Content", content = @Content(schema = @Schema(implementation = Void.class))),
@@ -67,7 +67,7 @@ public class MovimentacoesResource extends AbstractResourceApiBase {
 	}
 	
 	@GetMapping("/{id}")
-	@Operation(operationId = "findById", tags = "Caixas/Contas", summary = "Buscar Caixa/Conta", description = "Busca um Caixa/Conta pelo seu ID")
+	@Operation(operationId = "findById", tags = "Movimentações", summary = "Buscar Movimentação", description = "Busca uma Movimentação pelo seu ID")
 	@ApiResponses({
 		@ApiResponse(responseCode = "200", description = "Ok"),
 		@ApiResponse(responseCode = "204", description = "No Content", content = @Content(schema = @Schema(implementation = Void.class))),
@@ -79,7 +79,7 @@ public class MovimentacoesResource extends AbstractResourceApiBase {
 	}
 	
 	@PostMapping
-	@Operation(operationId = "save", tags = "Caixas/Contas", summary = "Salvar Caixa/Conta", description = "Persiste ou Atualiza um Caixa/Conta")
+	@Operation(operationId = "save", tags = "Movimentações", summary = "Salvar Movimentação", description = "Persiste uma Movimentação e atualiza o valor de saldo do Caixa/Conta")
 	@ApiResponses({
 		@ApiResponse(responseCode = "200", description = "Ok"),
 		@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = HttpResponseModel.class))),
@@ -90,7 +90,7 @@ public class MovimentacoesResource extends AbstractResourceApiBase {
 	}
 
 	@PostMapping("/consolidate")
-	@Operation(operationId = "consolidate", tags = "Caixas/Contas", summary = "Fechar Caixa/Conta", description = "Fecha um Caixa/Conta pelo seu ID")
+	@Operation(operationId = "consolidate", tags = "Movimentações", summary = "Consolidar Movimentações", description = "Consolida uma lista de Movimentações e atualiza o valor de saldo consolidado do Caixa/Conta")
 	@ApiResponses({
 		@ApiResponse(responseCode = "204", description = "No Content", content = @Content(schema = @Schema(implementation = Void.class))),
 		@ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(schema = @Schema(implementation = HttpResponseModel.class))),

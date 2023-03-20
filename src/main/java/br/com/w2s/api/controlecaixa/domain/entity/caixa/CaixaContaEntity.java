@@ -46,6 +46,7 @@ public class CaixaContaEntity extends AbstractEntityBase<Integer> {
 	public static final String COLUMN_TIPO = "TIPO";
 	public static final String COLUMN_STATUS = "STATUS";
 	public static final String COLUMN_VALOR_SALDO = "VALOR_SALDO";
+	public static final String COLUMN_VALOR_SALDO_CONSOLIDADO = "VALOR_SALDO_CONSOLIDADO";
 	
 	@Id
 	@Column(name = COLUMN_ID, nullable = false)
@@ -73,6 +74,11 @@ public class CaixaContaEntity extends AbstractEntityBase<Integer> {
 	@Column(name = COLUMN_VALOR_SALDO, precision = 20, scale = 2, nullable = false)
 	private BigDecimal valorSaldo;
 	
+	@NotNull
+	@NotCopyAttr
+	@Column(name = COLUMN_VALOR_SALDO_CONSOLIDADO, precision = 20, scale = 2, nullable = false)
+	private BigDecimal valorSaldoConsolidado;
+	
 	// PatterDesign Builder
 	public static class Builder {
 		@Getter
@@ -88,6 +94,7 @@ public class CaixaContaEntity extends AbstractEntityBase<Integer> {
 		
 		public Builder withDefault() {
 			this.instance.valorSaldo = BigDecimal.ZERO;
+			this.instance.valorSaldoConsolidado = BigDecimal.ZERO;
 			this.instance.status = StatusCaixaContaEnum.ABERTO;
 			return this;
 		}

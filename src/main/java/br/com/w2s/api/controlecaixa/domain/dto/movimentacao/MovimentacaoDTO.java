@@ -35,7 +35,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MovimentacaoDTO extends AbstractDTOBase {
 
-	@JsonProperty(access = Access.READ_ONLY)
 	private Long id;
 	
 	@NotNull
@@ -46,6 +45,8 @@ public class MovimentacaoDTO extends AbstractDTOBase {
 	private TipoCaixaContaEnum caixaContaTipo;
 	@JsonProperty(access = Access.READ_ONLY)
 	private BigDecimal caixaContaValorSaldo;
+	@JsonProperty(access = Access.READ_ONLY)
+	private BigDecimal caixaContaValorSaldoConsolidado;
 	
 	@JsonProperty(access = Access.READ_ONLY)
 	private String numeroTransacao;

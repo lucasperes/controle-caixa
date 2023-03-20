@@ -62,25 +62,13 @@ public class MovimentacaoService extends AbstractServiceBase implements IMovimen
 	@Transactional
 	public MovimentacaoEntity save(MovimentacaoEntity entity) {
 		entity = new MovimentacaoEntity.Builder(entity)
+				.withIdIsNull()
 				.withNumeroTransacao()
 				.withIsConsolidado(false)
 				.withDataAtual()
 				.getInstance();
-		
-		// Atualiza o valor de saldo do Caixa/Conta
-		Integer caixaContaId = entity.getCaixaConta().getId();
-		StringBuilder msgError = new StringBuilder("Caixa/Conta não foi encontrado com ID = ")
-				.append(caixaContaId);
-		CaixaContaEntity caixaConta = caixasContasRepository.findById(caixaContaId)
-				.orElseThrow(() -> new ControleCaixaEntityNotFoundException(msgError.toString(), caixaContaId));
-		// Credito
-		if(TipoMovimentacaoEnum.CREDITO.equals(entity.getTipo())) {
-			caixaConta.setValorSaldo(caixaConta.getValorSaldo().add(entity.getValor()));
-		} else if(TipoMovimentacaoEnum.DEBITO.equals(entity.getTipo())) {			
-			caixaConta.setValorSaldo(caixaConta.getValorSaldo().subtract(entity.getValor()));
-		}
-		caixasContasRepository.save(caixaConta);
-		
+		// Atualiza o valor de saldo do caixa
+		updateValorSaldo(entity);
 		return repository.save(entity);
 	}
 	
@@ -88,10 +76,43 @@ public class MovimentacaoService extends AbstractServiceBase implements IMovimen
 	@Transactional
 	public Void consolidate(List<MovimentacaoEntity> entities) {
 		entities.forEach(e -> {
+			e = findById(e.getId()); // Busca do banco para pegar as informacoes atualizada
 			e.setIsConsolidado(true);
+			updateValorSaldo(e);
 			repository.save(e);
 		});
 		return null;
+	}
+	
+	// Metodos Auxiliares
+	
+	private void updateValorSaldo(MovimentacaoEntity entity) {
+		// Atualiza o valor de saldo do Caixa/Conta
+		CaixaContaEntity caixaConta = findByIdCaixaContaOrThrow(entity.getCaixaConta().getId());
+		// Credito
+		if(TipoMovimentacaoEnum.CREDITO.equals(entity.getTipo())) {
+			if(Boolean.TRUE.equals(entity.getIsConsolidado())) {
+				caixaConta.setValorSaldoConsolidado(caixaConta.getValorSaldoConsolidado().add(entity.getValor()));				
+			} else {				
+				caixaConta.setValorSaldo(caixaConta.getValorSaldo().add(entity.getValor()));
+			}
+		} else if(TipoMovimentacaoEnum.DEBITO.equals(entity.getTipo())) {			
+			if(Boolean.TRUE.equals(entity.getIsConsolidado())) {				
+				caixaConta.setValorSaldoConsolidado(caixaConta.getValorSaldoConsolidado().subtract(entity.getValor()));
+			} else {				
+				caixaConta.setValorSaldo(caixaConta.getValorSaldo().subtract(entity.getValor()));
+			}
+		}
+		caixasContasRepository.save(caixaConta);
+	}
+	
+	private CaixaContaEntity findByIdCaixaContaOrThrow(Integer id) {
+		StringBuilder msgError = new StringBuilder("Caixa/Conta não foi encontrado com ID = ")
+				.append(id);
+		CaixaContaEntity caixaConta = caixasContasRepository.findById(id)
+				.orElseThrow(() -> new ControleCaixaEntityNotFoundException(msgError.toString(), id));
+		
+		return caixaConta;
 	}
 	
 }

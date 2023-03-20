@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 @ComponentScan(basePackages = {"br.com.w2s.api.controlecaixa"})
 @EntityScan(basePackages = {"br.com.w2s.api.controlecaixa.domain.entity"})
 @EnableJpaRepositories(basePackages = {"br.com.w2s.api.controlecaixa.domain.repository"})
-@OpenAPIDefinition(info = @Info(title = "Controle Caixa Services API", version = "1.0.0", description = "Documentação oficial da API de serviços REST para o sistema de Controle de Caixa"))
+@OpenAPIDefinition(info = @Info(title = "Controle de Caixa Services API", version = "1.0.0", description = "Documentação oficial da API de serviços REST para o sistema de Controle de Caixa"))
 public class ControleCaixaApplication {
 
 	public static void main(String[] args) {

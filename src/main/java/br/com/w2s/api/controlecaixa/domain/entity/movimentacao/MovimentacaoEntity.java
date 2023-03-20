@@ -112,6 +112,11 @@ public class MovimentacaoEntity extends AbstractEntityBase<Long> {
 			return this;
 		}
 		
+		public Builder withIdIsNull() {
+			this.instance.id = null;
+			return this;
+		}
+		
 		public Builder withIsConsolidado(Boolean isConsolidado) {
 			this.instance.isConsolidado = isConsolidado;
 			return this;
