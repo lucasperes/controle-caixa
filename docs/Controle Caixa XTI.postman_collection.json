@@ -1,0 +1,274 @@
+{
+	"info": {
+		"_postman_id": "01ff0154-b432-47de-b1ca-6185c33ed6f1",
+		"name": "Controle Caixa XTI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2071429"
+	},
+	"item": [
+		{
+			"name": "caixas-contas",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_api_local}}/caixas-contas?page=0&size=20&sort=id,asc",
+							"host": [
+								"{{url_api_local}}"
+							],
+							"path": [
+								"caixas-contas"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								},
+								{
+									"key": "sort",
+									"value": "id,asc"
+								},
+								{
+									"key": "nome",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "tipo",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_api_local}}/caixas-contas/1",
+							"host": [
+								"{{url_api_local}}"
+							],
+							"path": [
+								"caixas-contas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": null,\r\n\t\"nome\": \"CAIXA ECONOMICA FEDERAL CORRENTE 2\",\r\n\t\"tipo\": \"CONTA_BANCARIA\",\r\n\t\"contaBancaria\": {\r\n        \"codigo\": \"237\",\r\n        \"banco\": \"CAIXA\",\r\n        \"agencia\": \"2482\",\r\n        \"conta\": \"123456\",\r\n        \"contaDV\": \"1\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_api_local}}/caixas-contas",
+							"host": [
+								"{{url_api_local}}"
+							],
+							"path": [
+								"caixas-contas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "close",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{url_api_local}}/caixas-contas/2/close",
+							"host": [
+								"{{url_api_local}}"
+							],
+							"path": [
+								"caixas-contas",
+								"2",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_api_local}}/caixas-contas/2",
+							"host": [
+								"{{url_api_local}}"
+							],
+							"path": [
+								"caixas-contas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "movimentacoes",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_api_local}}/movimentacoes?page=0&size=20&sort=id,asc",
+							"host": [
+								"{{url_api_local}}"
+							],
+							"path": [
+								"movimentacoes"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "20"
+								},
+								{
+									"key": "sort",
+									"value": "id,asc"
+								},
+								{
+									"key": "caixaContaId",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "numeroTransacao",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "tipo",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "historico",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "isConsolidado",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_api_local}}/movimentacoes/1",
+							"host": [
+								"{{url_api_local}}"
+							],
+							"path": [
+								"movimentacoes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"caixaContaId\": 1,\r\n    \"tipo\": \"DEBITO\",\r\n    \"historico\": \"REFORMA MESA\",\r\n    \"valor\": 40\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_api_local}}/movimentacoes",
+							"host": [
+								"{{url_api_local}}"
+							],
+							"path": [
+								"movimentacoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consolidate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_api_local}}/movimentacoes/consolidate",
+							"host": [
+								"{{url_api_local}}"
+							],
+							"path": [
+								"movimentacoes",
+								"consolidate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
