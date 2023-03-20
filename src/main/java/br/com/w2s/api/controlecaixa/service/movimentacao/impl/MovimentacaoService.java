@@ -88,7 +88,7 @@ public class MovimentacaoService extends AbstractServiceBase implements IMovimen
 	
 	private void updateValorSaldo(MovimentacaoEntity entity) {
 		// Atualiza o valor de saldo do Caixa/Conta
-		CaixaContaEntity caixaConta = findByIdCaixaContaOrThrow(entity.getCaixaConta().getId());
+		CaixaContaEntity caixaConta = findByIdCaixaContaOrElseThrow(entity.getCaixaConta().getId());
 		// Credito
 		if(TipoMovimentacaoEnum.CREDITO.equals(entity.getTipo())) {
 			if(Boolean.TRUE.equals(entity.getIsConsolidado())) {
@@ -106,7 +106,7 @@ public class MovimentacaoService extends AbstractServiceBase implements IMovimen
 		caixasContasRepository.save(caixaConta);
 	}
 	
-	private CaixaContaEntity findByIdCaixaContaOrThrow(Integer id) {
+	private CaixaContaEntity findByIdCaixaContaOrElseThrow(Integer id) {
 		StringBuilder msgError = new StringBuilder("Caixa/Conta não foi encontrado com ID = ")
 				.append(id);
 		CaixaContaEntity caixaConta = caixasContasRepository.findById(id)
